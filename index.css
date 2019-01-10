@@ -1,0 +1,8 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+svg{
+	width: 600px; 
+	height: 300px;
+}
