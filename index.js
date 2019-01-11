@@ -16,19 +16,19 @@ function addSVG(div, width, height, margin) {
 function draw(data){
         var num = Math.random();
         if(num<0.5) {
-            data.push({Sum:data[data.length-1].Sum-1, Step:data[data.length-1].Step+1});
+            data.push({Sum:data[data.length-1].Sum-1, Round:data[data.length-1].Round+1});
         } else {
-            data.push({Sum:data[data.length-1].Sum+1, Step:data[data.length-1].Step+1});
+            data.push({Sum:data[data.length-1].Sum+1, Round:data[data.length-1].Round+1});
         }
     }
 
 d3.select('#draw').on("click",function() {
         var count = 10;
-        var data = [{Sum:0, Step:0}]
+        var data = [{Sum:0, Round:0}]
         for (var i = 1; i < count; i++) {
           draw(data);
         }
-        data.push({Sum:data[data.length-1].Sum, Step:data[data.length-1].Step+1})
+        data.push({Sum:data[data.length-1].Sum, Round:data[data.length-1].Round+1})
         drawChart(data);
     });
 
@@ -36,7 +36,7 @@ d3.select('#draw').on("click",function() {
 // function generateData(){
 //     var sum = [0];
 //     var step = [0];
-//     data = {Sum: sum, Step: step};
+//     data = {Sum: sum, Round: step};
 //     d3.select('#drawOne').on("click",function() {
 //         data=draw(sum,step);
 //         });
@@ -68,13 +68,13 @@ var g = svg.append("g");
 
 
 
-var stepmax = d3.max(data, function(d) { return d.Step; });
+var roundmax = d3.max(data, function(d) { return d.Round; });
     summin = d3.min(data, function(d) { return d.Sum; });
     summax =d3.max(data, function(d) { return d.Sum; });
 
 
 var x = d3.scaleLinear()
-    .domain(d3.extent(data, function(d) { return +d.Step }))
+    .domain(d3.extent(data, function(d) { return +d.Round }))
     .range([0, width]);
     
 var y = d3.scaleLinear()
@@ -85,7 +85,7 @@ var y = d3.scaleLinear()
 
 
 var line = d3.line()
-    .x(function(d) { return x(d.Step)})
+    .x(function(d) { return x(d.Round)})
     .y(function(d) { return y(d.Sum)})
     .curve(d3.curveStepAfter);
 
@@ -95,7 +95,7 @@ var line = d3.line()
 g.append("g")
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x).ticks(stepmax, "s"));
+      .call(d3.axisBottom(x).ticks(roundmax, "s"));
 
 g.append("g")
     .attr("class", "axis axis--y")
@@ -103,13 +103,13 @@ g.append("g")
     .call(d3.axisLeft(y).ticks(summax-summin, "s"));
 
 g.append("text")
-      .text("Step")
+      .text("round")
       .attr("class", "titles")
       .attr("transform", "translate(" + (width - margin.left)/ 2 + "," + (height + pad) + ")")
       .attr("alignment-baseline","hanging"); 
 
 g.append("text")
-      .text("Sum")
+      .text("sum")
       .attr("class", "titles")
       .attr("transform", "translate(" + -pad/1.5 + "," + (height+margin.top) / 2 + ")rotate(-90)")
       .attr("alignment-baseline","baseline");  
