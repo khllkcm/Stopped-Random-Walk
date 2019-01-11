@@ -13,7 +13,7 @@ function addSVG(div, width, height, margin) {
 } 
 
 
-function flip(data){
+function draw(data){
         var num = Math.random();
         if(num<0.5) {
             data.push({Sum:data[data.length-1].Sum-1, Step:data[data.length-1].Step+1});
@@ -26,7 +26,7 @@ d3.select('#draw').on("click",function() {
         var count = 10;
         var data = [{Sum:0, Step:0}]
         for (var i = 1; i < count; i++) {
-          flip(data);
+          draw(data);
         }
         data.push({Sum:data[data.length-1].Sum, Step:data[data.length-1].Step+1})
         drawChart(data);
@@ -37,14 +37,14 @@ d3.select('#draw').on("click",function() {
 //     var sum = [0];
 //     var step = [0];
 //     data = {Sum: sum, Step: step};
-//     d3.select('#flipOne').on("click",function() {
-//         data=flip(sum,step);
+//     d3.select('#drawOne').on("click",function() {
+//         data=draw(sum,step);
 //         });
-//         //Flip one-hundred times
-//     d3.select('#flipHundred').on("click",function() {
+//         //draw one-hundred times
+//     d3.select('#drawHundred').on("click",function() {
 //             var count = 0;
 //             var interval = setInterval(function() {
-//                     data =flip(sum,step);
+//                     data =draw(sum,step);
 //                 if (++count === 100){
 //                     clearInterval(interval);
 //                 }    
