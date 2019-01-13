@@ -1,18 +1,37 @@
 <html>
     <head>
         <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="inputrange.css">
         <meta charset="utf-8"/>
         <title>RWSTSim</title>
     </head>
     <body>
-        <div  id="plotRW"></div>
-        <input type="text" id="a" min="0" max="5" step="1" value="2">
-        <input type="text" id="b" min="0" max="5" step="1" value="1">
-        <div class="draw" id="draw">Draw</div>
+<div class="" id="plotRW"></div>
+<div class = "container">
+<div class = "one">
+<div class = "labeltext" >a =  <span class="avalue">1</span></div>
+<input type="range" min="0" max="10" step="1" value="1" id ="a">
+</div>
+<div class ="two">
+<div class = "labeltext">b =  <span class="bvalue">1</span></div>
+<input type="range" min="0" max="10" step="1" value="1" id ="b">
+</div>
+<div class ="three">
+<div class="draw" id="draw">Play</div>
+</div>
+</div>
+
+
+
+
+        
+        
         <button id="button">Replay</button>
         <button id="simulate">Simulate</button>
         <div class="" id="plotST"></div>
+
         <script src="d3.v4.min.js"></script>
+        <!-- <script src="jquery.min.js"></script> -->
         <script src="index.js"></script>
     </body>
 </html>
