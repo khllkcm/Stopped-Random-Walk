@@ -2,15 +2,16 @@
     <head>
         <link rel="stylesheet" href="index.css">
         <meta charset="utf-8"/>
-        <title>MartSim</title>
+        <title>RWSTSim</title>
     </head>
     <body>
-        <button id="draw">Draw</button>
+        <div  id="plotRW"></div>
+        <input type="text" id="a" min="0" max="5" step="1" value="2">
+        <input type="text" id="b" min="0" max="5" step="1" value="1">
+        <div class="draw" id="draw">Draw</div>
         <button id="button">Replay</button>
-        <!-- <button id="flipOne">1.</button>
-        <button id="flipHundred">100.</button> -->
-        <svg  width="100%"  class="line-chart"></svg>
-        
+        <button id="simulate">Simulate</button>
+        <div class="" id="plotST"></div>
         <script src="d3.v4.min.js"></script>
         <script src="index.js"></script>
     </body>
