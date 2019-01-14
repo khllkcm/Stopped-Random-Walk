@@ -1,3 +1,3 @@
-# MartSim
+# Stopped Random Walk
 
-D3.js simulation of a stopped random walk
+This repository contains the D3.js code used to create the simulations found on [this blog post](https://khalil.kacem.xyz/blog/posts/random-walk-st-using-martingale.html).
