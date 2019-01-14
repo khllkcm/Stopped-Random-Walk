@@ -16,8 +16,8 @@ function plotST() {
 
 
   var ST_plot = d3.select("#plotST").append("svg").attr("width", "100%")
-    .attr("height", "100%")
-    .attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.top + margin.bottom))
+    .attr("height", "600px")
+    .attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.top + margin.bottom-100))
     .attr("preserveAspectRatio", "xMidYMid meet")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -75,14 +75,6 @@ function plotST() {
     ST_plot.select(".x.axis")
       .transition()
       .call(x_axis_ST.ticks(3));
-    path_ST_plot
-      .datum(data)
-      .attr("d", line)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1.5);
 
     path_tau
       .datum([
@@ -96,6 +88,17 @@ function plotST() {
       .attr("stroke-width", 1.5)
       .style("stroke-dasharray", ("5, 5"))
       .attr("d", line);
+
+    path_ST_plot
+      .datum(data)
+      .attr("d", line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5);
+
+    
   };
 
   d3.select("#simulate1").on("click", function () {
@@ -185,8 +188,8 @@ function plotST() {
 function plotRW() {
 
 
-  var a = -1;
-  var b = 1;
+  var a = -2;
+  var b = 2;
 
   function draw(data) {
     var num = Math.random();
@@ -248,12 +251,12 @@ function plotRW() {
       bottom: 40,
       left: 40
     };
-    var width = 300 - margin.left - margin.right;
-    var height = 200 - margin.top - margin.bottom;
+    var width = 600 - margin.left - margin.right;
+    var height = 400 - margin.top - margin.bottom;
 
     var svg = d3.select("#plotRW").append("svg").attr("width", "100%")
-      .attr("height", "100%")
-      .attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.top + margin.bottom))
+      .attr("height", "600px")
+      .attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.top + margin.bottom - 100))
       .attr("preserveAspectRatio", "xMidYMid meet")
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
