@@ -1,37 +1,43 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="index.css">
-        <link rel="stylesheet" href="inputrange.css">
-        <meta charset="utf-8"/>
-        <title>RWSTSim</title>
-    </head>
-    <body>
-<div class="" id="plotRW"></div>
-<div class = "container">
-<div class = "one">
-<div class = "labeltext" >a =  <span class="avalue">1</span></div>
-<input type="range" min="0" max="10" step="1" value="1" id ="a">
-</div>
-<div class ="two">
-<div class = "labeltext">b =  <span class="bvalue">1</span></div>
-<input type="range" min="0" max="10" step="1" value="1" id ="b">
-</div>
-<div class ="three">
-<div class="draw" id="draw">Play</div>
-</div>
-</div>
-
-
-
-
-        
-        
-        <button id="button">Replay</button>
-        <button id="simulate">Simulate</button>
-        <div class="" id="plotST"></div>
-
-        <script src="d3.v4.min.js"></script>
-        <!-- <script src="jquery.min.js"></script> -->
-        <script src="index.js"></script>
-    </body>
+   <head>
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="inputrange.css">
+      <meta charset="utf-8"/>
+      <title>RWSTSim</title>
+   </head>
+   <body>
+      <div class="" id="plotRW"></div>
+      <div class = "container">
+         <div class = "one">
+            <div class = "alabeltext">a =  <span class="avalue">1</span></div>
+            <input type="range" min="0" max="10" step="1" value="1" id ="a" autocomplete="off">
+         </div>
+         <div class = "three">
+            <div class="draw" id="draw">Play</div>
+         </div>
+         <div class = "two">
+            <div class = "blabeltext">b =  <span class="bvalue">1</span></div>
+            <input type="range" min="0" max="10" step="1" value="1" id ="b" autocomplete="off">
+         </div>
+      </div>
+      <div class="" id="plotST"></div>
+      <div class = "container">
+         <div class = "one">
+            <div class = "alabeltext" >a =  <span class="astvalue">1</span></div>
+            <input type="range" min="0" max="10" step="1" value="1" id ="ast" autocomplete="off">
+         </div>
+         <div class ="threest">
+            <div class="simulate" id="simulate1">Simulate one game</div>
+            <div class="simulate" id="simulate50">Simulate 50 games</div>
+         </div>
+         <div class = "two">
+            <div class = "blabeltext">b =  <span class="bstvalue">1</span></div>
+            <input type="range" min="0" max="10" step="1" value="1" id ="bst" autocomplete="off">
+         </div>
+      </div>
+      <script src="inputrange.js"></script>
+      <script src="d3.v4.min.js"></script>
+      <script src="index.js"></script>
+   </body>
 </html>
+

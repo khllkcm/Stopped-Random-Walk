@@ -1,20 +1,13 @@
-html, body {
-    margin: 0;
-    padding: 0;
-
-	background-color: #F1F7FF;
+html,
+body {
+    background-color: #F1F7FF;
 }
 
-#plotRW,  #plotST{
-    width: 600px; 
-    height: 400px;
-}
-
-.draw {
+.draw,
+.simulate {
     border: 1px solid #D0D0D0;
     display: inline-block;
-    padding: 0.6em 1em;
-    margin: 2% 1%;
+    text-align: center;
     color: black;
     background-color: white;
     pointer-events: auto;
@@ -23,12 +16,57 @@ html, body {
     border-radius: 6px;
 }
 
-.draw:hover{
+.draw:hover,
+.simulate:hover {
     color: gray;
     background-color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
 }
 
-.titles{
-	color:#64bdff;
+.titles {
+    color: #64bdff;
+}
+
+#plotRW,
+#plotST {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.alabeltext,
+.blabeltext {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.one,
+.two {
+    width: 30%;
+    text-align: center;
+}
+
+.draw {
+    margin: 20px;
+    padding: 10px;
+}
+
+.threest {
+    margin-top: 20px;
+    width: 50%;
+    float: bottom;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+}
+
+.simulate {
+    padding: 10px;
+    display: inline-block;
+    margin: 5px;
 }

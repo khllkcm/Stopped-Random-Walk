@@ -1,57 +1,30 @@
-.labeltext, .avalue, .bvalue{
-  text-align: center;
-  margin-bottom: 10px;
-}
 input[type="range"] {
-  display: block;
-  -webkit-appearance: none;
-  background-color: #bdc3c7;
-  width: 200px;
-  height: 10px;
-  border-radius: 5px;
-  margin: 0 auto;
-  outline: 0;
+	display: block;
+	-webkit-appearance: none;
+	background-color: #bdc3c7;
+	width: 70%;
+	height: 10px;
+	border-radius: 5px;
+	margin: 0 auto;
+	outline: 0;
 }
+
 input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  background-color: #e74c3c;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 2px solid white;
-  cursor: pointer;
-  transition: .3s ease-in-out;
-}​
-  input[type="range"]::-webkit-slider-thumb:hover {
-    background-color: white;
-    border: 2px solid #e74c3c;
-  }
-  input[type="range"]::-webkit-slider-thumb:active {
-    transform: scale(1);
-  }
-
-#plotRW{
-width: 100%;
-  margin: 0 auto;
-  margin-right: 50px;
-}
-.container {
-    width: 600px;
-    height: 100px;
-    margin: auto;
-    padding: 10px;
-}
-.one {
-
-    float: left;
-}
-.two {
-    margin-left: 15%;
+	-webkit-appearance: none;
+	background-color: #e74c3c;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	border: 2px solid white;
+	cursor: pointer;
+	transition: .3s ease-in-out;
 }
 
-.three{
-	float: bottom;
-	width: 29%;
-  margin: 0 auto;
-  margin-top: 20px;
+input[type="range"]::-webkit-slider-thumb:hover {
+	background-color: white;
+	border: 2px solid #e74c3c;
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+	transform: scale(1);
 }

@@ -1,41 +1,26 @@
-var a_elem = document.getElementById("a");
-
-var rangeValuea = function(){
-  var newValue = a_elem.value;
-  var target = document.querySelector('.avalue');
-  target.innerHTML = newValue;
-}
-
-a_elem.addEventListener("input", rangeValuea);
-
-
-var b_elem = document.getElementById("b");
-
-var rangeValueb = function(){
-  var newValue = b_elem.value;
-  var target = document.querySelector('.bvalue');
-  target.innerHTML = newValue;
-}
-
-b_elem.addEventListener("input", rangeValueb);
-
-
-plotST()
-plotRW()
+plotST();
+plotRW();
 
 
 function plotST() {
   var pad = 30;
-  var margin = {top: 40, right: 40, bottom: 40, left: 40};
-  var width = 300 - margin.left - margin.right;
-  var height = 200 - margin.top - margin.bottom;
-  var max_games = 10;
+  var margin = {
+    top: 40,
+    right: 40,
+    bottom: 40,
+    left: 40
+  };
+  var width = 600 - margin.left - margin.right;
+  var height = 400 - margin.top - margin.bottom;
+  var max_games = 60;
+
+
   var ST_plot = d3.select("#plotST").append("svg").attr("width", "100%")
-        .attr("height", "100%")
-        .attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.top + margin.bottom))
-        .attr("preserveAspectRatio", "xMidYMid meet")
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("height", "100%")
+    .attr("viewBox", "0 0 " + (width + margin.left + margin.right) + " " + (height + margin.top + margin.bottom))
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var x_axis_ST_plot = ST_plot.append("g").attr("class", "x axis");
   var x_axis_ST_plot_text = ST_plot.append("text").attr("text-anchor", "middle").text("Number of Games");
@@ -44,111 +29,135 @@ function plotST() {
   var path_ST_plot = ST_plot.append("path").attr("id", "ss");
   var path_tau = ST_plot.append("path").attr("id", "tau");
 
-
-  function round(number, decimal) {
-    var power = Math.pow(10, decimal);
-    return (Math.round(number * power) / power).toFixed(decimal);
-  }
-
-  //input a and b
+  var a = -document.getElementById("ast").value;
+  var b = +document.getElementById("bst").value;
 
 
- var a = -1;
- var b =1;
-  //calculate tau
-  var tau = -a*b;
+  d3.select("#ast").on("input", function () {
+    a = -this.value;
+    d3.selectAll("#plotST > *").remove();
+    plotST();
+  });
 
-  //X scale 
+
+  d3.select("#bst").on("input", function () {
+    b = +this.value;
+    d3.selectAll("#plotST > *").remove();
+    plotST();
+  });
+
+
+  var tau = -a * b;
   var x_scale_ST_plot = d3.scaleLinear().domain([1, max_games]);
 
-  //Y Scale
-  var y_scale_ST_plot = d3.scaleLinear().domain([0, 2*tau]);
+  var y_scale_ST_plot = d3.scaleLinear().domain([0, 2 * tau]);
 
-  //Define X axis
   var x_axis_ST = d3.axisBottom(x_scale_ST_plot).ticks(3);
 
-  //Define Y axis
   var y_axis_ST = d3.axisLeft(y_scale_ST_plot).ticks(6);
 
-  var rounds = []
+  var rounds = [];
   var expectedData = [];
 
-  function expectation(data){
+  function expectation(data) {
     var line = d3.line()
-      .x(function(d) { return x_scale_ST_plot(d[0])})
-      .y(function(d) { return y_scale_ST_plot(d[1])})
+      .x(function (d) {
+        return x_scale_ST_plot(d[0])
+      })
+      .y(function (d) {
+        return y_scale_ST_plot(d[1])
+      });
 
-    if(data.length>max_games*0.9){
-      max_games = max_games*1.5;
-    }
-    x_scale_ST_plot.domain([1,max_games]);
+    if (data.length > max_games * 0.8) {
+      max_games = max_games * 1.6;
+    };
+    x_scale_ST_plot.domain([1, max_games]);
     ST_plot.select(".x.axis")
-        .transition()
-        .call(x_axis_ST.ticks(3));
+      .transition()
+      .call(x_axis_ST.ticks(3));
     path_ST_plot
       .datum(data)
-        .attr("d", line)
+      .attr("d", line)
       .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-linecap", "round")
-        .attr("stroke-width", 1.5)
+      .attr("stroke", "steelblue")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5);
 
     path_tau
-      .datum([[1,tau],[max_games,tau]])
+      .datum([
+        [1, tau],
+        [max_games, tau]
+      ])
       .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-linecap", "round")
-        .attr("stroke-width", 1.5)
+      .attr("stroke", "red")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 1.5)
       .style("stroke-dasharray", ("5, 5"))
       .attr("d", line);
-  }
+  };
 
-  d3.select("#simulate").on("click", function() {
-      var count = 0;
-      var interval = setInterval(function() {
-      magic()
+  d3.select("#simulate1").on("click", function () {
+    magic();
+  });
 
-          if (++count === 100){
-            clearInterval(interval);
-            }   
-      }, 15);
-    });
 
-  function magic(data=[{Sum:0, Round:0}],a=-2,b=2){
-    while(data[data.length-1].Sum < b && data[data.length-1].Sum > a) {
-        draw(data);
+  d3.select("#simulate50").on("click", function () {
+    var count = 0;
+    var interval = setInterval(function () {
+      magic();
+      if (++count === 50) {
+        clearInterval(interval);
       }
-      var roundmax = d3.max(data, function(d) { return d.Round; });
-      rounds.push(roundmax)
-      expectedData.push(average(rounds));
+    }, 15);
+  });
+
+  function magic(data = [{
+    Sum: 0,
+    Round: 0
+  }]) {
+    while (data[data.length - 1].Sum < b && data[data.length - 1].Sum > a) {
+      draw(data);
+    }
+    var roundmax = d3.max(data, function (d) {
+      return d.Round;
+    });
+    rounds.push(roundmax);
+    expectedData.push(average(rounds));
     expectation(expectedData);
-  }
+  };
 
   function average(data) {
     var total = data.length;
-    var sum = data.reduce(function(a, b){return a+b;},0);
-    return [total,sum/total]; 
-  }
+    var sum = data.reduce(function (c, d) {
+      return c + d;
+    }, 0);
+    return [total, sum / total];
+  };
 
-  function draw(data){
-        var num = Math.random();
-        if(num<0.5) {
-            data.push({Sum:data[data.length-1].Sum-1, Round:data[data.length-1].Round+1});
-        } else {
-            data.push({Sum:data[data.length-1].Sum+1, Round:data[data.length-1].Round+1});
-        }
+  function draw(data) {
+    var num = Math.random();
+    if (num < 0.5) {
+      data.push({
+        Sum: data[data.length - 1].Sum - 1,
+        Round: data[data.length - 1].Round + 1
+      });
+    } else {
+      data.push({
+        Sum: data[data.length - 1].Sum + 1,
+        Round: data[data.length - 1].Round + 1
+      });
     }
+  };
 
-    
 
-    function drawtau(){
+  function drawtau() {
 
-      var w = d3.select('#plotST').node().clientWidth;
-      w = width
-      var h = height;
-      var padTau = pad;
+    var w = d3.select('#plotST').node().clientWidth;
+    w = width;
+    var h = height;
+    var padTau = pad;
 
     ST_plot.attr("width", w).attr("height", h);
 
@@ -160,28 +169,24 @@ function plotST() {
 
     x_axis_ST_plot_text.style("font", "14px times")
       .attr("class", "titles")
-      .attr("transform", "translate(" + (width - margin.left)/ 2 + "," + (height + pad) + ")")
-      .attr("alignment-baseline","hanging"); 
+      .attr("transform", "translate(" + (width - margin.left) / 2 + "," + (height + pad) + ")")
+      .attr("alignment-baseline", "hanging");
 
     y_axis_ST_plot_text.style("font", "14px times")
       .attr("class", "titles")
-      .attr("transform", "translate(" + -pad/1.5 + "," + (height+margin.top) / 2 + ")rotate(-90)")
-      .attr("alignment-baseline","baseline");  
-    
+      .attr("transform", "translate(" + -pad / 1.5 + "," + (height + margin.top) / 2 + ")rotate(-90)")
+      .attr("alignment-baseline", "baseline");
+
     expectation(expectedData);
-  }
+  };
   drawtau();
-
-}
-
-
-
+};
 
 function plotRW() {
 
 
- var a = -1;
- var b =1;
+  var a = -1;
+  var b = 1;
 
   function draw(data) {
     var num = Math.random();
@@ -202,7 +207,7 @@ function plotRW() {
 
 
   function simRW() {
-  var data = [{
+    var data = [{
       Sum: 0,
       Round: 0
     }];
@@ -217,21 +222,18 @@ function plotRW() {
   };
 
 
-
-
-
   d3.select('#draw').on("click", function () {
-     
-     simRW();
+
+    simRW();
   });
 
-  d3.select("#a").on("input", function() {
+  d3.select("#a").on("input", function () {
     a = -this.value;
     simRW();
   });
 
 
-  d3.select("#b").on("input", function() {
+  d3.select("#b").on("input", function () {
     b = +this.value;
     simRW();
   });
@@ -348,6 +350,5 @@ function plotRW() {
 
 
   }
+};
 
-
-}
